@@ -1,0 +1,83 @@
+pipeline{
+    agent any
+
+    environment {
+        name = "sai"
+    }
+
+    parameters{
+        string(name : 'person', defaultValue : 'Enter name', description : 'who are you')
+        bolleanParam(name : 'isMale', defaultValue : 'true', description :'' )
+        choice(name : 'Number', choices:[1,2,3,4,5],description :'')
+    }
+
+    stages{
+        stage("build"){
+            steps{
+                echo "Hello World"
+            }
+
+        }
+
+        stage("shell"){
+            steps{
+                sh "date"
+                sh "ls"
+                sh "cal"
+                sh "pwd"
+            }
+
+        }
+
+        stage("vaeiables"){            #Variables/Environment variables in code
+            steps{
+                sh "echo '$(BUILD_NUMBER)'"
+                sh "echo '$(BUILD_ID)'"
+                sh "echo '$(BUILD_URL)'"
+                sh "echo '$(name)'"
+            }
+
+        stage("parameters"){             #Build Parameters in Code
+            steps{
+                sh "echo '$(person)'"
+            }
+
+        } 
+
+        stage("input"){             #taking input value in middle from user
+            input {
+                message "should we continue"
+                ok "yes we should"
+            }
+            steps {
+                echo "Hello World!"
+            }
+        }
+
+        }
+
+        stage("environment_var"){              #to use env_var only in this stage (local variable)
+            environment{
+                user_name ='kumar'
+            }
+           
+            steps{
+                sh "echo '$(user_name)'"
+            }
+
+        } 
+        
+
+    }
+    post{
+        always{
+            echo "I will always say hello again"
+        }
+        success{
+            echo "========pipeline executed successfully ========"
+        }
+        failure{
+            echo "========pipeline execution failed========"
+        }
+    }
+}
