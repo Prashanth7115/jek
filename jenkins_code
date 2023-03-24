@@ -29,7 +29,7 @@ pipeline{
 
         }
 
-        stage("vaeiables"){            #Variables/Environment variables in code
+        stage("vaeiables"){            
             steps{
                 sh "echo '$(BUILD_NUMBER)'"
                 sh "echo '$(BUILD_ID)'"
@@ -37,14 +37,14 @@ pipeline{
                 sh "echo '$(name)'"
             }
 
-        stage("parameters"){             #Build Parameters in Code
+        stage("parameters"){            
             steps{
                 sh "echo '$(person)'"
             }
 
         } 
 
-        stage("input"){             #taking input value in middle from user
+        stage("input"){             
             input {
                 message "should we continue"
                 ok "yes we should"
@@ -56,7 +56,7 @@ pipeline{
 
         }
 
-        stage("environment_var"){              #to use env_var only in this stage (local variable)
+        stage("environment_var"){              
             environment{
                 user_name ='kumar'
             }
