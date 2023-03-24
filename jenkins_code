@@ -29,7 +29,7 @@ pipeline{
 
         }
 
-        stage("vaeiables"){            
+        stage("variables"){            
             steps{
                 sh "echo '$(BUILD_NUMBER)'"
                 sh "echo '$(BUILD_ID)'"
