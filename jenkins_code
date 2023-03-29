@@ -6,9 +6,9 @@ pipeline{
     }
 
     parameters{
-        string(name : 'person', defaultValue : 'Enter name', description : 'who are you')
-        bolleanParam(name : 'isMale', defaultValue : 'true', description :'' )
-        choice(name : 'Number', choices:[1,2,3,4,5],description :'')
+        string(name: 'person', defaultValue: 'Enter name', description: 'who are you')
+        booleanParam(name: 'isMale', defaultValue: true, description: '' )
+        choice(name: 'Number', choices: [1,2,3,4,5], description: '')
     }
 
     stages{
@@ -16,7 +16,6 @@ pipeline{
             steps{
                 echo "Hello World"
             }
-
         }
 
         stage("shell"){
@@ -26,49 +25,44 @@ pipeline{
                 sh "cal"
                 sh "pwd"
             }
-
         }
 
-        stage("variables"){            
+        stage("variables"){            //Variables/Environment variables in code
             steps{
-                sh "echo '$(BUILD_NUMBER)'"
-                sh "echo '$(BUILD_ID)'"
-                sh "echo '$(BUILD_URL)'"
-                sh "echo '$(name)'"
+                sh "echo '${BUILD_NUMBER}'"
+                sh "echo '${BUILD_ID}'"
+                sh "echo '${BUILD_URL}'"
+                sh "echo '${name}'"
             }
+        }
 
-        stage("parameters"){            
+        stage("parameters"){             //Build Parameters in Code
             steps{
-                sh "echo '$(person)'"
+                sh "echo '${params.person}'"
             }
-
         } 
 
-        stage("input"){             
-            input {
-                message "should we continue"
-                ok "yes we should"
-            }
+        stage("input"){             //taking input value in middle from user
             steps {
+                input {
+                    message "should we continue"
+                    ok "yes we should"
+                }
+             steps {
                 echo "Hello World!"
             }
         }
 
-        }
-
-        stage("environment_var"){              
+        stage("environment_var"){              //to use env_var only in this stage (local variable)
             environment{
                 user_name ='kumar'
             }
-           
             steps{
-                sh "echo '$(user_name)'"
+                sh "echo '${user_name}'"
             }
-
         } 
-        
-
     }
+
     post{
         always{
             echo "I will always say hello again"
