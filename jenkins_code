@@ -1,77 +1,35 @@
-pipeline{
+pipeline {
     agent any
-
-    environment {
-        name = "sai"
-    }
-
-    parameters{
-        string(name: 'person', defaultValue: 'Enter name', description: 'who are you')
-        booleanParam(name: 'isMale', defaultValue: true, description: '' )
-        choice(name: 'Number', choices: [1,2,3,4,5], description: '')
-    }
-
-    stages{
-        stage("build"){
-            steps{
-                echo "Hello World"
-            }
-        }
-
-        stage("shell"){
-            steps{
-                sh "date"
-                sh "ls"
-                sh "cal"
-                sh "pwd"
-            }
-        }
-
-        stage("variables"){            //Variables/Environment variables in code
-            steps{
-                sh "echo '${BUILD_NUMBER}'"
-                sh "echo '${BUILD_ID}'"
-                sh "echo '${BUILD_URL}'"
-                sh "echo '${name}'"
-            }
-        }
-
-        stage("parameters"){             //Build Parameters in Code
-            steps{
-                sh "echo '${params.person}'"
-            }
-        } 
-
-        stage("input"){             //taking input value in middle from user
+    stages {
+        stage('Stage 1') {
             steps {
-                input {
-                    message "should we continue"
-                    ok "yes we should"
-                }
-             steps {
-                echo "Hello World!"
+                sh 'echo "Hello, World!"'
             }
         }
-
-        stage("environment_var"){              //to use env_var only in this stage (local variable)
-            environment{
-                user_name ='kumar'
+        stage('Stage 2') {
+            steps {
+                sh 'mkdir my_folder'
             }
-            steps{
-                sh "echo '${user_name}'"
+        }
+        stage('Stage 3') {
+            steps {
+                sh 'cd my_folder && touch file.txt'
             }
-        } 
-    }
-
-    post{
-        always{
-            echo "I will always say hello again"
         }
-        success{
-            echo "========pipeline executed successfully ========"
+        stage('Stage 4') {
+            steps {
+                sh 'echo "This is some text" >> my_folder/file.txt'
+            }
         }
-        failure{
-            echo "========pipeline execution failed========"
+        stage('Stage 5') {
+            steps {
+                sh 'cat my_folder/file.txt'
+            }
+        }
+        stage('Stage 6') {
+            steps {
+                sh 'rm -rf my_folder'
+            }
         }
     }
 }
