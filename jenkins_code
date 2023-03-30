@@ -1,6 +1,5 @@
 pipeline {
     agent any
-    
     stages {
         stage('Stage 1') {
             steps {
@@ -9,28 +8,23 @@ pipeline {
         }
         stage('Stage 2') {
             steps {
-                cleanWs()
-                bat 'mkdir my_folder'
+                bat 'mkdir "D:\\my_folder"'
+                bat 'mkdir "D:\\my_folder2"'
             }
         }
         stage('Stage 3') {
             steps {
-                bat 'cd my_folder && type nul > file.txt'
+                bat 'cd /d "D:\\my_folder" && type NUL > file.txt'
             }
         }
         stage('Stage 4') {
             steps {
-                bat 'echo "This is some text" >> my_folder\\file.txt'
+                bat 'echo "This is some text" >> "D:\\my_folder\\file.txt"'
             }
         }
         stage('Stage 5') {
             steps {
-                bat 'type my_folder\\file.txt'
-            }
-        }
-        stage('Stage 6') {
-            steps {
-                bat 'rmdir /s /q my_folder'
+                bat 'type "D:\\my_folder\\file.txt"'
             }
         }
     }
