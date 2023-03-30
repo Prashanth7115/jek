@@ -27,7 +27,7 @@ pipeline{
             }
         }
 
-        stage("variables"){            REM Variables/Environment variables in code
+        stage("variables"){            
             steps{
                 bat "echo %BUILD_NUMBER%"
                 bat "echo %BUILD_ID%"
@@ -36,13 +36,13 @@ pipeline{
             }
         }
 
-        stage("parameters"){             REM Build Parameters in Code
+        stage("parameters"){             
             steps{
                 bat "echo %person%"
             }
         }
 
-        stage("input"){             REM taking input value in middle from user
+        stage("input"){             
             input {
                 message "should we continue"
                 ok "yes we should"
@@ -52,7 +52,7 @@ pipeline{
             }
         }
 
-        stage("environment_var"){              REM to use env_var only in this stage (local variable)
+        stage("environment_var"){              
             environment{
                 user_name ='kumar'
             }
