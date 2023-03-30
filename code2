@@ -6,9 +6,9 @@ pipeline{
     }
 
     parameters{
-        string(name = 'person', defaultValue = 'Enter name', description = 'who are you')
-        booleanParam(name = 'isMale', defaultValue = true, description ='')
-        choice(name = 'Number', choices=[1,2,3,4,5],description ='')
+        string(name: 'person', defaultValue: 'Enter name', description: 'who are you')
+        booleanParam(name: 'isMale', defaultValue: true, description: '')
+        choice(name: 'Number', choices: [1, 2, 3, 4, 5], description: '')
     }
 
     stages{
@@ -16,33 +16,35 @@ pipeline{
             steps{
                 echo "Hello World"
             }
+
         }
 
         stage("shell"){
             steps{
-                bat "date"
-                bat "dir"
-                bat "echo %DATE%"
-                bat "cd"
+                sh "date"
+                sh "ls"
+                sh "cal"
+                sh "pwd"
             }
+
         }
 
-        stage("variables"){            
+        stage("variables"){            //Variables/Environment variables in code
             steps{
-                bat "echo %BUILD_NUMBER%"
-                bat "echo %BUILD_ID%"
-                bat "echo %BUILD_URL%"
-                bat "echo %name%"
+                sh "echo '$(BUILD_NUMBER)'"
+                sh "echo '$(BUILD_ID)'"
+                sh "echo '$(BUILD_URL)'"
+                sh "echo '$(name)'"
             }
         }
 
-        stage("parameters"){             
+        stage("parameters"){             //Build Parameters in Code
             steps{
-                bat "echo %person%"
+                sh "echo '$(person)'"
             }
-        }
+        } 
 
-        stage("input"){             
+        stage("input"){             //taking input value in middle from user
             input {
                 message "should we continue"
                 ok "yes we should"
@@ -52,15 +54,17 @@ pipeline{
             }
         }
 
-        stage("environment_var"){              
+        stage("environment_var"){              //to use env_var only in this stage (local variable)
             environment{
                 user_name ='kumar'
             }
+           
             steps{
-                bat "echo %user_name%"
+                sh "echo '$(user_name)'"
             }
-        }
+        } 
     }
+
     post{
         always{
             echo "I will always say hello again"
