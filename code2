@@ -6,9 +6,9 @@ pipeline{
     }
 
     parameters{
-        string(name: 'person', defaultValue: 'Enter name', description: 'who are you')
-        booleanParam(name: 'isMale', defaultValue: true, description: '')
-        choice(name: 'Number', choices: [1, 2, 3, 4, 5], description: '')
+        string(name : 'person', defaultValue : 'Enter name', description : 'who are you')
+        booleanParam(name : 'isMale', defaultValue : true, description :'' )
+        choice(name : 'Number', choices:[1,2,3,4,5],description :'')
     }
 
     stages{
@@ -31,16 +31,16 @@ pipeline{
 
         stage("variables"){            //Variables/Environment variables in code
             steps{
-                
-                sh "echo '$(BUILD_ID)'"
-                
-                sh "echo '$(name)'"
+                sh "echo '%BUILD_NUMBER%'"
+                sh "echo '%BUILD_ID%'"
+                sh "echo '%BUILD_URL%'"
+                sh "echo '%name%'"
             }
         }
 
         stage("parameters"){             //Build Parameters in Code
             steps{
-                sh "echo '$(person)'"
+                sh "echo '%person%'"
             }
         } 
 
@@ -60,11 +60,13 @@ pipeline{
             }
            
             steps{
-                sh "echo '$(user_name)'"
+                sh "echo '%user_name%'"
             }
-        } 
-    }
 
+        } 
+        
+
+    }
     post{
         always{
             echo "I will always say hello again"
