@@ -1,34 +1,36 @@
 pipeline {
     agent any
+    
     stages {
         stage('Stage 1') {
             steps {
-                sh 'echo "Hello, World!"'
+                bat 'echo "Hello, World!"'
             }
         }
         stage('Stage 2') {
             steps {
-                sh 'mkdir my_folder'
+                cleanWs()
+                bat 'mkdir my_folder'
             }
         }
         stage('Stage 3') {
             steps {
-                sh 'cd my_folder && touch file.txt'
+                bat 'cd my_folder && type nul > file.txt'
             }
         }
         stage('Stage 4') {
             steps {
-                sh 'echo "This is some text" >> my_folder/file.txt'
+                bat 'echo "This is some text" >> my_folder\\file.txt'
             }
         }
         stage('Stage 5') {
             steps {
-                sh 'cat my_folder/file.txt'
+                bat 'type my_folder\\file.txt'
             }
         }
         stage('Stage 6') {
             steps {
-                sh 'rm -rf my_folder'
+                bat 'rmdir /s /q my_folder'
             }
         }
     }
