@@ -31,9 +31,9 @@ pipeline{
 
         stage("variables"){            //Variables/Environment variables in code
             steps{
-                sh "echo '$(BUILD_NUMBER)'"
+                
                 sh "echo '$(BUILD_ID)'"
-                sh "echo '$(BUILD_URL)'"
+                
                 sh "echo '$(name)'"
             }
         }
