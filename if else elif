@@ -1,0 +1,92 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Stage 1') {
+      steps {
+        bat 'echo This is Stage 1'
+
+        // Set condition to true for Stage 2, false for Stage 3
+        script {
+          def stage2Condition = true
+
+          if (stage2Condition) {
+            stage('Stage 2') {
+              steps {
+                bat 'echo This is Stage 2'
+              }
+            }
+          } else {
+            stage('Stage 3') {
+              steps {
+                bat 'echo This is Stage 3'
+              }
+            }
+          }
+        }
+      }
+    }
+
+    stage('Stage 4') {
+      steps {
+        // Check if condition is satisfied, create folder in /d/ path
+        bat 'if 1==1 (mkdir /d/new-folder)'
+
+        input 'Press Enter to continue'
+      }
+    }
+
+    stage('Stage 5') {
+      steps {
+        // Take input from user
+        script {
+          def userInput = input(
+            message: 'Enter your name',
+            parameters: [string(name: 'Name', defaultValue: 'John Doe', description: 'Enter your name')]
+          )
+
+          echo "Your name is ${userInput}"
+        }
+      }
+    }
+
+    stage('Stage 6') {
+      steps {
+        // Check if condition is satisfied, create parallel stages
+        script {
+          def parallelCondition = true
+
+          if (parallelCondition) {
+            parallel (
+              "Parallel Stage 1": {
+                bat 'echo This is Parallel Stage 1'
+              },
+              "Parallel Stage 2": {
+                bat 'echo This is Parallel Stage 2'
+              }
+            )
+          }
+        }
+      }
+    }
+
+    stage('Stage 7') {
+      steps {
+        // Use build-in variables to print build name and ID
+        echo "Build Name: ${BUILD_TAG}"
+        echo "Build ID: ${BUILD_ID}"
+      }
+    }
+
+    stage('Stage 8') {
+      steps {
+        // Loop through and create 8 tables
+        script {
+          for (int i = 1; i <= 8; i++) {
+            bat "echo This is Table ${i}"
+          }
+        }
+      }
+    }
+  }
+}
