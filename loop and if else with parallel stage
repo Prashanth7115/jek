@@ -1,0 +1,152 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Stage 1') {
+      steps {
+        echo 'This is Stage 1'
+      }
+    }
+
+    stage('Stage 2') {
+      steps {
+        echo 'This is Stage 2'
+
+        // Loop through the steps 3 times
+        script {
+          for (int i = 1; i <= 3; i++) {
+            echo "Loop iteration ${i}"
+          }
+        }
+      }
+    }
+
+    stage('Stage 3') {
+      steps {
+        echo 'This is Stage 3'
+
+        // Loop through the steps 4 times
+        script {
+          for (int i = 1; i <= 4; i++) {
+            echo "Loop iteration ${i}"
+          }
+        }
+      }
+    }
+
+    stage('Stage 4') {
+      steps {
+        echo 'This is Stage 4'
+
+        // Use if-else statement
+        script {
+          def someVariable = "Hello"
+
+          if (someVariable == "Hello") {
+            echo "someVariable is equal to Hello"
+          } else {
+            echo "someVariable is not equal to Hello"
+          }
+        }
+      }
+    }
+
+    stage('Parallel Stage') {
+      parallel {
+        stage('Parallel Stage 1') {
+          steps {
+            echo 'This is Parallel Stage 1'
+
+            // Use if-else statement
+            script {
+              def someVariable = "Hello"
+
+              if (someVariable == "Hello") {
+                echo "someVariable is equal to Hello"
+              } else {
+                echo "someVariable is not equal to Hello"
+              }
+            }
+          }
+        }
+
+        stage('Parallel Stage 2') {
+          steps {
+            echo 'This is Parallel Stage 2'
+
+            // Use if-else statement
+            script {
+              def someVariable = "World"
+
+              if (someVariable == "Hello") {
+                echo "someVariable is equal to Hello"
+              } else {
+                echo "someVariable is not equal to Hello"
+              }
+            }
+          }
+        }
+      }
+    }
+
+    stage('Stage 5') {
+      steps {
+        echo 'This is Stage 5'
+
+        // Loop through the steps 2 times
+        script {
+          for (int i = 1; i <= 2; i++) {
+            echo "Loop iteration ${i}"
+          }
+        }
+      }
+    }
+
+    stage('Stage 6') {
+      steps {
+        echo 'This is Stage 6'
+
+        // Use if-else statement
+        script {
+          def someVariable = "World"
+
+          if (someVariable == "Hello") {
+            echo "someVariable is equal to Hello"
+          } else {
+            echo "someVariable is not equal to Hello"
+          }
+        }
+      }
+    }
+
+    stage('Stage 7') {
+      steps {
+        echo 'This is Stage 7'
+
+        // Loop through the steps 3 times
+        script {
+          for (int i = 1; i <= 3; i++) {
+            echo "Loop iteration ${i}"
+          }
+        }
+      }
+    }
+
+    stage('Stage 8') {
+      steps {
+        echo 'This is Stage 8'
+
+        // Use if-else statement
+        script {
+          def someVariable = "Hello"
+
+          if (someVariable == "Hello") {
+            echo "someVariable is equal to Hello"
+          } else {
+            echo "someVariable is not equal to Hello"
+          }
+        }
+      }
+    }
+  }
+}
