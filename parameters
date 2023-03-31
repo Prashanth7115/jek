@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+    stages {
+        stage('Loop') {
+            steps {
+                bat 'for /l %%i in (1,1,5) do echo Iteration %%i'
+            }
+        }
+        stage('Inbuilt Variable') {
+            steps {
+                echo "This job is running on ${env.NODE_NAME}"
+            }
+        }
+        stage('String Parameter') {
+            steps {
+                echo "The input string is ${params.STRING_PARAM}"
+            }
+        }
+        stage('Boolean Parameter') {
+            steps {
+                bat "if ('%BOOLEAN_PARAM%'=='true') { echo The boolean parameter is true } else { echo The boolean parameter is false }"
+            }
+        }
+        stage('Password Parameter') {
+            steps {
+                echo "The password is ${params.PASSWORD_PARAM}"
+            }
+        }
+        stage('End') {
+            steps {
+                echo "Pipeline completed"
+            }
+        }
+    }
+}
